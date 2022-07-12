@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
@@ -8,13 +8,11 @@ import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const [ removeBook, { error } ] = useMutation(REMOVE_BOOK);
   
-  const { loading, data } = useQuery(GET_ME, {
-    variables: {userData}
-  });
+  const { loading, data } = useQuery(GET_ME);
 
-  const userData = data?.userData || {};
+  const userData = data?.me || {};
 
   if (loading) {
     return <div>Loading....</div>;
@@ -31,24 +29,15 @@ const SavedBooks = () => {
     try {
       const response = await removeBook(bookId, token);
 
-
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
-
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
-
-  // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
 
   return (
     <>
