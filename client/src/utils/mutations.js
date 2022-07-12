@@ -24,30 +24,36 @@ export const ADD_USER = gql`
     }
 `;
 
-// export const ADD_THOUGHT = gql`
-//   mutation addThought($thoughtText: String!) {
-//     addThought(thoughtText: $thoughtText) {
-//       _id
-//       thoughtText
-//       createdAt
-//       username
-//       reactionCount
-//       reactions {
-//         _id
-//       }
-//     }
-//   }
-// `;
+export const SAVE_BOOK = gql`
+    mutation saveBook(input: saveBookInput) {
+        saveBook(input: saveBookInput) {
+            _id
+            username
+            saveBook {
+                authors
+                title
+                description
+                bookId
+                image
+                link
+            }
+        }
+    }
+`;
 
-// export const REMOVE_FRIEND = gql`
-//   mutation removeFriend($id: ID!) {
-//     removeFriend(id: $id) {
-//       _id
-//       username
-//       friends {
-//         _id
-//         username
-//       }
-//     }
-//   }
+export const REMOVE_BOOK = gql`
+    mutation removeBook(bookId: ID!t) {
+        removeBook(bookId: ID!) {
+            _id
+            username
+            saveBook {
+                authors
+                title
+                description
+                bookId
+                image
+                link
+            }
+        }
+    }
 `;
