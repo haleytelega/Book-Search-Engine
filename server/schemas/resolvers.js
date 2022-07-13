@@ -23,13 +23,12 @@ const resolvers = {
             const user = await User.create(args);
             console.log("user:", user)
             const token = signToken(user);
+            return { token, user };
             console.log("token:", token)
         }
         catch (err) {
             console.log("error:", err)
         }
-
-        return { token, user };
     },
 
     login: async (parent, { email, password }) => {
