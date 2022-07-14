@@ -24,11 +24,10 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await removeBook(bookId, token);
+      const { data } = await removeBook({
+        variables: { bookId: bookId}
+      });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (error) {
@@ -39,7 +38,7 @@ const SavedBooks = () => {
   if (loading) {
     return <div>Loading....</div>;
   }
-  
+
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
