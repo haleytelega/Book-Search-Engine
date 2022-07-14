@@ -8,15 +8,12 @@ import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
-  const [ removeBook, { error } ] = useMutation(REMOVE_BOOK);
-  
   const { loading, data } = useQuery(GET_ME);
 
-  const userData = data?.me || {};
+  const [ removeBook, { error } ] = useMutation(REMOVE_BOOK);
 
-  if (loading) {
-    return <div>Loading....</div>;
-  }
+  const userData = data?.me || {};
+  console.log(userData);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
@@ -39,6 +36,10 @@ const SavedBooks = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading....</div>;
+  }
+  
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>

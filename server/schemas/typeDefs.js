@@ -13,7 +13,6 @@ const typeDefs = gql`
         me: User
     }
 
-
     type Book {
         bookId: String!
         authors: [String]
